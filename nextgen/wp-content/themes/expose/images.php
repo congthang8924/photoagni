@@ -44,7 +44,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 			{
 				$loopcount = 0;
 				$images_page_num = get_query_var('paged');
-				$images_each_page = 12;
+				$images_each_page = 9;
 				
 				if (!isset($images_page_num) || $images_page_num < 1 )
 					$images_page_num = 1;
@@ -95,8 +95,11 @@ if(isset($gallery_id) && $gallery_id != 0)
 						// echo "</span>";
 						// if(function_exists('the_ratings')) the_ratings();		
 						echo "<div class='gallery_excerpt'>";
-						echo "<strong>Description</strong><br />";
-						echo $image_description;
+						if(isset($image_description) && $image_description != '')
+						{							
+							echo "<strong>Description</strong><br />";
+							echo $image_description;
+						}
 						// echo get_the_excerpt();
 						echo "</div>";
 						echo "</div>";
