@@ -9,12 +9,17 @@ get_header();
 // include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/manage.php' );	// nggallery_admin_manage_gallery
 
 // This outputs the headline on your mainpage within an h2 tag
+/*
 if($k_option['general']['headline'] != '')
 {
 	echo '<div id="feature_info">';
 	echo '<h2>'.$k_option['general']['headline'].'</h2>';
 	echo '</div>';	
 }
+*/
+echo '<div id="feature_info">';
+echo '<h2>Galleries</h2>';
+echo '</div>';
 
 echo '<div id="main">';
 echo '	<div class="content the_gallery">';
@@ -53,8 +58,10 @@ if(is_user_logged_in())
 		foreach($galleries as $key=>$gallery)
 		{
 			// Here starts the code generated for each gallery entry:
-			$gallery_name = $gallery->name;
+			$gallery_name = $gallery->title;
 			$gallery_link = get_bloginfo('wpurl') . '/images/?gallery_id=' . $gallery->gid;
+			$gallery_desc = $gallery->galdesc;
+			$no_of_photos = $gallery->counter;
 			
 			if ($loopcount === 0)
 				echo  '<div class="entry">';
@@ -65,13 +72,15 @@ if(is_user_logged_in())
 			// Get the images for the gallery entry, small and big size at a time
 			$small_prev_image = kriesi_user_thumb($gallery->thumbURL, array('size'=> array('M','_preview_medium'),
 													 	'wh' => $k_option['custom']['imgSize']['M'],
-													 	'img_attr' => array('class'=>'item_small')	
+													 	'img_attr' => array('title'=>$gallery_name,
+													 						'class'=>'item_small')
 														));
 			
 			
 			$big_prev_image = kriesi_user_thumb($gallery->imageURL, array('size'=> array('L'),
 													 	'wh' => $k_option['custom']['imgSize']['L'],
-													 	'img_attr' => array('class'=>'item_big no_preload')	
+													 	'img_attr' => array('title'=>$gallery_name,
+													 						'class'=>'item_big no_preload')	
 														));
 			
 			// Output the entry with all the parameters gathered above
@@ -81,12 +90,14 @@ if(is_user_logged_in())
 			echo $small_prev_image;
 			echo $big_prev_image;
 			echo "</a>";
-			echo "<span class='comment_link'>";
-			comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
-			echo "</span>";
-			if(function_exists('the_ratings')) the_ratings();		
+			// echo "<span class='comment_link'>";
+			// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
+			// echo "</span>";
+			// if(function_exists('the_ratings')) the_ratings();		
 			echo "<div class='gallery_excerpt'>";
-			echo get_the_excerpt();
+			echo "<strong>Description</strong><br />";
+			echo $no_of_photos . " Photos<br />";
+			echo $gallery_desc;
 			echo "</div>";
 			echo "</div>";
 			echo "<h3><a href='".$gallery_link."'>".$gallery_name."</a></h3>";

@@ -9,18 +9,26 @@ get_header();
 // include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/manage.php' );	// nggallery_admin_manage_gallery
 
 // This outputs the headline on your mainpage within an h2 tag
+$image_id = $_GET['image_id'];
+$gallery_id = $_GET['gallery_id'];
+$image_details = $nggdb->find_image($image_id);
+/*
 if($k_option['general']['headline'] != '')
 {
 	echo '<div id="feature_info">';
 	echo '<h2>'.$k_option['general']['headline'].'</h2>';
 	echo '</div>';	
 }
+*/
+echo '<div id="feature_info">';
+echo '<h2>'.$image_details->alttext.'</h2>';
+echo '</div>';
 
 echo '<div id="main">';
 echo '	<div class="content the_gallery">';
 
-$image_id = $_GET['image_id'];
-$gallery_id = $_GET['gallery_id'];
+// $image_id = $_GET['image_id'];
+// $gallery_id = $_GET['gallery_id'];
 if(isset($image_id) && $image_id != 0)
 {
 	if(isset($gallery_id) && $gallery_id != 0)
@@ -38,7 +46,7 @@ if(isset($image_id) && $image_id != 0)
 			{
 				if($userID == $gallery_details->author)
 				{
-					$image_details = $nggdb->find_image($image_id);
+					// $image_details = $nggdb->find_image($image_id);
 					if($image_details->exclude == 0)
 					{
 						
@@ -46,23 +54,22 @@ if(isset($image_id) && $image_id != 0)
 						{
 							if($gallery_id == $image_details->galleryid)
 							{
-								$image_name = $image_details->image_slug;
+								$image_name = $image_details->alttext;
 								$image_description = $image_details->description;
 							 	$big_prev_image = kriesi_user_thumb($image_details->imageURL, array('size'=> array('L'),
 																				'wh' => $k_option['custom']['imgSize']['L'],
+							 													'img_attr' => array('title'=>$image_name),
+																				'link_attr' => array('title'=>$image_name),
 																				'display_link' => array('none'), 
 																				'linkurl' => array ('XL','_preview_big')
 																				));
 							 	
-								if(isset($image_name) && $image_name != '')
-								{
-									echo 'Name: ' . $image_name . '<br />';
-								}
+								echo $big_prev_image;
 								if(isset($image_description) && $image_description != '')
 								{
-									echo 'Description: ' . $image_description . '<br />';
+									echo '<strong>Description</strong><br />';
+									echo $image_description;
 								}
-								echo $big_prev_image;
 							}
 							else
 							{
