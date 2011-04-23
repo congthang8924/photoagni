@@ -79,27 +79,32 @@ function kriesi_user_thumb($image_URL, $option)
 			//check if we got a set customfield to overwrite the default generated image
 			if (isset($option['linkurl'][1]))
 			{
-				$link_src = get_post_meta($this_post, $option['linkurl'][1], true);
+				// $link_src = get_post_meta($this_post, $option['linkurl'][1], true);
+				$link_src = $image_URL;
 			}
 			
 			if($link_src == '')
 			{	
 				
-				$link_src = wp_get_attachment_image_src($thumbnail_id, $option['linkurl'][0]);
-				$link_src = $link_src[0];
+				// $link_src = wp_get_attachment_image_src($thumbnail_id, $option['linkurl'][0]);
+				// $link_src = $link_src[0];
+				$link_src = $image_URL;
 			}
 			
-			$linkwrap[0] = '<a '.$link_attr_string.' rel="lightbox[grouped]" href="'.$link_src.'" title="'.get_the_title().'" >';
+			// $linkwrap[0] = '<a '.$link_attr_string.' rel="lightbox[grouped]" href="'.$link_src.'" title="'.get_the_title().'" >';
+			$linkwrap[0] = '<a '.$link_attr_string.' rel="lightbox[grouped]" href="'.$link_src.'" >';
 		}
 		else
 		{	
 			$link_src = $display_link;
-			$linkwrap[0] = '<a '.$link_attr_string.' href="'.$link_src.'" title="'.get_the_title().'" >';
+			// $linkwrap[0] = '<a '.$link_attr_string.' href="'.$link_src.'" title="'.get_the_title().'" >';
+			$linkwrap[0] = '<a '.$link_attr_string.' href="'.$link_src.'" >';
 		}
 		
 		
 		
-		$defaultimage = $linkwrap[0]."<img ".$img_attr_string." src='".$image_URL."' alt='' title='".get_the_title()."' height='".$option['wh']['height'] ." ' width='".$option['wh']['width'] ."' />".$linkwrap[1];
+		// $defaultimage = $linkwrap[0]."<img ".$img_attr_string." src='".$image_URL."' alt='' title='".get_the_title()."' height='".$option['wh']['height'] ." ' width='".$option['wh']['width'] ."' />".$linkwrap[1];
+		$defaultimage = $linkwrap[0]."<img ".$img_attr_string." src='".$image_URL."' alt='' height='".$option['wh']['height'] ." ' width='".$option['wh']['width'] ."' />".$linkwrap[1];
 
 	
 	return $defaultimage;

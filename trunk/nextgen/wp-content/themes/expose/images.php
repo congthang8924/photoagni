@@ -9,17 +9,24 @@ get_header();
 // include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/manage.php' );	// nggallery_admin_manage_gallery
 
 // This outputs the headline on your mainpage within an h2 tag
+/*
 if($k_option['general']['headline'] != '')
 {
 	echo '<div id="feature_info">';
 	echo '<h2>'.$k_option['general']['headline'].'</h2>';
 	echo '</div>';	
 }
+*/
+$gallery_id = $_GET['gallery_id'];
+$gallery_details = $nggdb->find_gallery($gallery_id);
+
+echo '<div id="feature_info">';
+echo '<h2>'.$gallery_details->title.'</h2>';
+echo '</div>';
 
 echo '<div id="main">';
 echo '	<div class="content the_gallery">';
 
-$gallery_id = $_GET['gallery_id'];
 if(isset($gallery_id) && $gallery_id != 0)
 {
 	global $ngg, $nggdb, $wp_query;
@@ -30,7 +37,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 		$userID = $current_user->data->ID;
 		
 		// Get gallery details
-		$gallery_details = $nggdb->find_gallery($gallery_id);
+		// $gallery_details = $nggdb->find_gallery($gallery_id);
 		if(is_object($gallery_details))
 		{
 			if($userID == $gallery_details->author)
@@ -54,6 +61,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 						// Here starts the code generated for each gallery entry:
 						$image_name = $gallery_image->image_slug;
 						$image_link = get_bloginfo('wpurl') . '/image/?gallery_id='.$gallery_details->gid.'&image_id=' . $gallery_image->pid;
+						$image_description = $gallery_image->description;
 						
 						if ($loopcount === 0)
 							echo  '<div class="entry">';
@@ -64,13 +72,15 @@ if(isset($gallery_id) && $gallery_id != 0)
 						// Get the images for the gallery entry, small and big size at a time
 						$small_prev_image = kriesi_user_thumb($gallery_image->thumbURL, array('size'=> array('M','_preview_medium'),
 																 	'wh' => $k_option['custom']['imgSize']['M'],
-																 	'img_attr' => array('class'=>'item_small')	
+																 	'img_attr' => array('title'=>$image_name,
+																 						'class'=>'item_small')	
 																	));
 						
 						
 						$big_prev_image = kriesi_user_thumb($gallery_image->imageURL, array('size'=> array('L'),
 																 	'wh' => $k_option['custom']['imgSize']['L'],
-																 	'img_attr' => array('class'=>'item_big no_preload')	
+																 	'img_attr' => array('title'=>$image_name,
+																 						'class'=>'item_big no_preload')	
 																	));
 						
 						// Output the entry with all the parameters gathered above
@@ -80,12 +90,14 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo $small_prev_image;
 						echo $big_prev_image;
 						echo "</a>";
-						echo "<span class='comment_link'>";
-						comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
-						echo "</span>";
-						if(function_exists('the_ratings')) the_ratings();		
+						// echo "<span class='comment_link'>";
+						// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
+						// echo "</span>";
+						// if(function_exists('the_ratings')) the_ratings();		
 						echo "<div class='gallery_excerpt'>";
-						echo get_the_excerpt();
+						echo "<strong>Description</strong><br />";
+						echo $image_description;
+						// echo get_the_excerpt();
 						echo "</div>";
 						echo "</div>";
 						echo "<h3><a href='".$image_link."'>".$image_name."</a></h3>";
