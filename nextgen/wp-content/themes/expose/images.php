@@ -44,7 +44,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 			{
 				$loopcount = 0;
 				$images_page_num = get_query_var('paged');
-				$images_each_page = 10;
+				$images_each_page = 12;
 				
 				if (!isset($images_page_num) || $images_page_num < 1 )
 					$images_page_num = 1;
@@ -52,7 +52,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 				$start = ($images_page_num - 1) * $images_each_page;
 				
 				$gallery_images = array();
-				$gallery_images = $nggdb->get_gallery($gallery_id, '', '', TRUE, $images_each_page, $images_start, '');
+				$gallery_images = $nggdb->get_gallery($gallery_id, '', '', TRUE, $images_each_page, $start, '');
 				
 				if(is_array($gallery_images) && count($gallery_images) > 0)
 				{
@@ -113,7 +113,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 					{
 						echo'</div>';
 					}
-					kriesi_pagination($nggdb->paged['total_objects']/$nggdb->paged['objects_per_page']);
+					kriesi_pagination(ceil($nggdb->paged['total_objects']/$nggdb->paged['objects_per_page']));
 				}
 				else
 				{

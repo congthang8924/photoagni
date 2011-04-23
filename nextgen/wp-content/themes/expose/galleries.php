@@ -33,7 +33,7 @@ if(is_user_logged_in())
 	
 	$loopcount = 0;
 	$gallery_page_num = get_query_var('paged');
-	$gallery_each_page = 10;
+	$gallery_each_page = 12;
 	// $ngg->manage_page = new nggManageGallery();
 	
 	if (!isset($gallery_page_num) || $gallery_page_num < 1 )
@@ -114,7 +114,7 @@ if(is_user_logged_in())
 			echo'</div>';
 		}
 		// $ngg->manage_page->pagination( 'bottom', $start, $nggdb->paged['total_objects'], $nggdb->paged['objects_per_page']  );
-		kriesi_pagination($nggdb->paged['total_objects']/$nggdb->paged['objects_per_page']);
+		kriesi_pagination(ceil($nggdb->paged['total_objects']/$nggdb->paged['objects_per_page']));
 	}
 	else
 	{
