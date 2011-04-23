@@ -1,0 +1,20 @@
+No changes:
+D:\wamp\www\nextgen\wp-content\themes\expose\index.php
+D:\wamp\www\nextgen\wp-content\plugins\next-gen\admin\manage-galleries.php
+
+D:\wamp\www\nextgen\wp-content\plugins\next-gen\admin\admin.php
+D:\wamp\www\nextgen\wp-content\plugins\next-gen\admin\manage.php
+
+New files created:
+D:\wamp\www\nextgen\wp-content\themes\expose\galleries.php
+D:\wamp\www\nextgen\wp-content\themes\expose\images.php
+D:\wamp\www\nextgen\wp-content\themes\expose\image.php
+
+D:\wamp\www\nextgen\wp-content\themes\expose\framework\helper_functions\kriesi_user_thumb.php
+
+Chnages in existing files:
+Added a new function:
+find_all_user_galleries -> D:\wamp\www\nextgen\wp-content\plugins\next-gen\lib\ngg-db.php
+
+Changes in existing functions:
+$autoload['helper'] -> D:\wamp\www\nextgen\wp-content\themes\expose\functions.php
