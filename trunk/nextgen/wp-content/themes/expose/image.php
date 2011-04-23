@@ -60,7 +60,7 @@ if(isset($image_id) && $image_id != 0)
 																				'wh' => $k_option['custom']['imgSize']['L'],
 							 													'img_attr' => array('title'=>$image_name),
 																				'link_attr' => array('title'=>$image_name),
-																				'display_link' => array('none'), 
+																				'display_link' => array('lightbox'), 
 																				'linkurl' => array ('XL','_preview_big')
 																				));
 							 	
