@@ -8,7 +8,6 @@ include('wp-content/plugins/next-gen/admin/functions.php');
 
 //nggAdmin::create_gallery('testapi345','/wp-content/gallery/');
 
-
 global $nggdb;
 		
 // WPMU action
