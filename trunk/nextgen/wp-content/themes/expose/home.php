@@ -176,8 +176,16 @@ else
 	}
 	else
 	{
-		$login_url = wp_login_url();
-		echo "Gallery does not exists. <a href='".$login_url."' title='Login'>Login</a>.";
+		if(is_user_logged_in())
+		{
+			$url = get_bloginfo('wpurl') . '/galleries/';
+			echo "Gallery does not exists. Go to <a href='".$url."' title='Galleries'>Galleries</a>.";
+		}
+		else
+		{
+			$url = wp_login_url();
+			echo "Gallery does not exists. <a href='".$url."' title='Login'>Login</a>.";
+		}
 	}
 }
 

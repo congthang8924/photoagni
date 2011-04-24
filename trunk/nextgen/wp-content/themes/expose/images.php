@@ -59,7 +59,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 					foreach($gallery_images as $key=>$gallery_image)
 					{
 						// Here starts the code generated for each gallery entry:
-						$image_name = $gallery_image->image_slug;
+						$image_name = $gallery_image->alttext;
 						$image_link = get_bloginfo('wpurl') . '/image/?gallery_id='.$gallery_details->gid.'&image_id=' . $gallery_image->pid;
 						$image_description = $gallery_image->description;
 						
