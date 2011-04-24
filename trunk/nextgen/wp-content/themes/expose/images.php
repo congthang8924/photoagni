@@ -73,14 +73,16 @@ if(isset($gallery_id) && $gallery_id != 0)
 						$small_prev_image = kriesi_user_thumb($gallery_image->thumbURL, array('size'=> array('M','_preview_medium'),
 																 	'wh' => $k_option['custom']['imgSize']['M'],
 																 	'img_attr' => array('title'=>$image_name,
-																 						'class'=>'item_small')	
-																	));
+																 						'class'=>'item_small gallery_image'),
+																	'display_link' => array('lightbox'), 
+																	'linkurl' => array ('XL','_preview_big')
+																	), $gallery_image->imageURL);
 						
 						
 						$big_prev_image = kriesi_user_thumb($gallery_image->imageURL, array('size'=> array('L'),
 																 	'wh' => $k_option['custom']['imgSize']['L'],
 																 	'img_attr' => array('title'=>$image_name,
-																 						'class'=>'item_big no_preload')	
+																 						'class'=>'item_big no_preload')
 																	));
 						
 						// Output the entry with all the parameters gathered above
@@ -88,7 +90,6 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo "<div class='gallery_inner'>";
 						echo "<a class='preloading gallery_image' href='".$image_link."'>";
 						echo $small_prev_image;
-						echo $big_prev_image;
 						echo "</a>";
 						// echo "<span class='comment_link'>";
 						// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
@@ -103,7 +104,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 						// echo get_the_excerpt();
 						echo "</div>";
 						echo "</div>";
-						echo "<h3><a href='".$image_link."'>".$image_name."</a></h3>";
+						echo "<h3>".$image_name."</h3>";
 						echo "</div>";
 						
 						if($loopcount == 3)

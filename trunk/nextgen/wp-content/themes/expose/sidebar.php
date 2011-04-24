@@ -10,12 +10,13 @@ global $k_option, $custom_widget_area;
 				echo "<div class='sidebar'>";
 				
 				//gallery controlls:
-				echo "<div class='display_buttons'>";
-				echo "<a href='#' id='item_small' class='display'><span>Compact</span></a>";
-				echo "<a href='#' id='item_medium' class='display'><span>Detailed</span></a>";
-				echo "<a href='#' id='item_large' class='display'><span>Large</span></a>";
-				echo "</div>";
-					
+				if(is_page('Galleries'))
+				{
+					echo "<div class='display_buttons'>";
+					echo "<a href='#' id='item_small' class='display'><span>Compact</span></a>";
+					echo "<a href='#' id='item_medium' class='display'><span>Detailed</span></a>";
+					echo "</div>";
+				}					
 					
 				//Frontpage sidebars:
 				if ($k_option['showSidebar'] == 'frontpage' && dynamic_sidebar('Frontpage Sidebar') ) : $default_sidebar = false; endif;
