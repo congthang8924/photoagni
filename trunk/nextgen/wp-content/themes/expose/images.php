@@ -4,19 +4,9 @@ Template Name: Images
 */
 
 get_header();
-
-// include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/functions.php' );	// admin functions
-// include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/manage.php' );	// nggallery_admin_manage_gallery
-
-// This outputs the headline on your mainpage within an h2 tag
-/*
-if($k_option['general']['headline'] != '')
-{
-	echo '<div id="feature_info">';
-	echo '<h2>'.$k_option['general']['headline'].'</h2>';
-	echo '</div>';	
-}
-*/
+?>
+<script type="text/javascript" src="http://fotoflexer.com/API/ff_api_v1_01.js"></script>
+<?php
 global $ngg, $nggdb, $wp_query;
 
 $gallery_id = $_GET['gallery_id'];
@@ -59,7 +49,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 					foreach($gallery_images as $key=>$gallery_image)
 					{
 						// Here starts the code generated for each gallery entry:
-						$image_name = $gallery_image->alttext;
+						$image_name = ucwords($gallery_image->alttext);
 						$image_link = get_bloginfo('wpurl') . '/image/?gallery_id='.$gallery_details->gid.'&image_id=' . $gallery_image->pid;
 						$image_description = $gallery_image->description;
 						
@@ -91,6 +81,11 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo "<a class='preloading gallery_image' href='".$image_link."'>";
 						echo $small_prev_image;
 						echo "</a>";
+						
+						echo '<div class="post-ratings"><span class="edit_pic" id="'.$gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid.'"><img title="Edit Picture" alt="Edit Picture" src="'.get_bloginfo('template_url').'/images/edit_picture.png" /> <img title="Upload to Facebook" alt="Upload to Facebook" src="'.get_bloginfo('template_url').'/images/fb.gif" /> <img title="Upload to Flickr" alt="Upload to Flickr" src="'.get_bloginfo('template_url').'/images/flickr.png" /></div>';
+						
+						
+						
 						// echo "<span class='comment_link'>";
 						// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
 						// echo "</span>";
@@ -153,7 +148,33 @@ else
 echo '	</div>';
 
 $k_option['showSidebar'] = 'frontpage';
+?>
+<script type="text/javascript">
+	var ff_image_url;
+	var ff_callback_url;
+	var ff_cancel_url;
+	var ff_lang;
+	
+	function ff_setup(img_src,gallery_id,img_name,img_id){
+		ff_image_url = img_src;
+		ff_callback_url = "<?php echo get_bloginfo('wpurl').'/wp-content/plugins/agni_fotoflexer/fotohandler.php?gal_id='; ?>"+gallery_id+"%26name="+img_name+"%26img_id="+img_id;
+		ff_cancel_url = "<?php echo get_bloginfo('url').'/images?gallery_id=' ?>"+gallery_id;
+		ff_lang = "en-US";
+		ff_activate();
+	}
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function($){
+$('.edit_pic').click(function() {
+	var params = $(this).attr('id');
+	var myArray = params.split('*');
+	ff_setup(myArray[2],myArray[1],myArray[0],myArray[3]);
+});
+});
+</script>
 
+
+<?php
 get_sidebar();
 
 get_footer();
