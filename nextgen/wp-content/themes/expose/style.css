@@ -778,9 +778,9 @@ display:none !important;
 }
 
 #top .post-ratings img{
-height:12px;
-width:12px;
-padding-right:1px;
+height:17px;
+width:17px;
+padding-right:5px;
 display: block;
 float: left;
 }
