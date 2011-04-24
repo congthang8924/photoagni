@@ -82,7 +82,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo $small_prev_image;
 						echo "</a>";
 						
-						echo '<div class="post-ratings"><span class="edit_pic" id="'.$gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid.'"><img title="Edit Picture" alt="Edit Picture" src="'.get_bloginfo('template_url').'/images/edit_picture.png" /> <img title="Upload to Facebook" alt="Upload to Facebook" src="'.get_bloginfo('template_url').'/images/fb.gif" /> <img title="Upload to Flickr" alt="Upload to Flickr" src="'.get_bloginfo('template_url').'/images/flickr.png" /></div>';
+						echo '<div class="post-ratings"><span class="edit_pic" id="'.$gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid.'"><img title="Edit Picture" alt="Edit Picture" src="'.get_bloginfo('template_url').'/images/edit_picture.png" /></span><img title="Upload to Facebook" alt="Upload to Facebook" src="'.get_bloginfo('template_url').'/images/fb.gif" /> <img title="Upload to Flickr" alt="Upload to Flickr" src="'.get_bloginfo('template_url').'/images/flickr.png" /></div>';
 						
 						
 						
