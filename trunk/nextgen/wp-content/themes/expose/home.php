@@ -5,11 +5,11 @@ Template Name: Home
 
 get_header();
 
+global $ngg, $nggdb, $wp_query;
+
 $gallery_details = $nggdb->search_for_galleries('Home', 1);
 $gallery_details = $gallery_details[0];
 $gallery_id = $gallery_details->gid;
-
-global $ngg, $nggdb, $wp_query;
 
 if(isset($_GET['image_id']) && $_GET['image_id'] != 0)
 {

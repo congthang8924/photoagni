@@ -17,6 +17,8 @@ if($k_option['general']['headline'] != '')
 	echo '</div>';	
 }
 */
+global $ngg, $nggdb, $wp_query;
+
 $gallery_id = $_GET['gallery_id'];
 $gallery_details = $nggdb->find_gallery($gallery_id);
 
@@ -29,8 +31,6 @@ echo '	<div class="content the_gallery">';
 
 if(isset($gallery_id) && $gallery_id != 0)
 {
-	global $ngg, $nggdb, $wp_query;
-	
 	if(is_user_logged_in())
 	{
 		get_currentuserinfo();

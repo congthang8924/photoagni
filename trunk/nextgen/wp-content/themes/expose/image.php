@@ -8,6 +8,8 @@ get_header();
 // include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/functions.php' );	// admin functions
 // include_once ( dirname (__FILE__) . '/../../plugins/next-gen/admin/manage.php' );	// nggallery_admin_manage_gallery
 
+global $ngg, $nggdb, $wp_query;
+
 // This outputs the headline on your mainpage within an h2 tag
 $image_id = $_GET['image_id'];
 $gallery_id = $_GET['gallery_id'];
@@ -33,8 +35,6 @@ if(isset($image_id) && $image_id != 0)
 {
 	if(isset($gallery_id) && $gallery_id != 0)
 	{
-		global $ngg, $nggdb, $wp_query;
-		
 		if(is_user_logged_in())
 		{
 			get_currentuserinfo();
