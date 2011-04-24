@@ -85,7 +85,7 @@ if(is_user_logged_in())
 				$big_prev_image = kriesi_user_thumb($gallery->imageURL, array('size'=> array('L'),
 														 	'wh' => $k_option['custom']['imgSize']['L'],
 														 	'img_attr' => array('title'=>$gallery_name,
-														 						'class'=>'item_big no_preload')	
+														 						'class'=>'item_big no_preload'),
 															));
 				
 				// Output the entry with all the parameters gathered above
