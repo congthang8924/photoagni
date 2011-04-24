@@ -9,7 +9,8 @@ load_theme_textdomain('expose');
 $k_option['custom']['imgSize']['base'] = array('width'=>267, 'height'=>180); 	// backend preview size, if changed does not affect the frontend
 $k_option['custom']['imgSize']['S'] = array('width'=>60, 'height'=>60);			// small preview pics, eg for sidebar news
 $k_option['custom']['imgSize']['M'] = array('width'=>180, 'height'=>135);		// small preview pic for posts
-$k_option['custom']['imgSize']['L'] = array('width'=>610, 'height'=>260);		// big preview pic for posts
+//$k_option['custom']['imgSize']['L'] = array('width'=>610, 'height'=>260);		// big preview pic for posts
+$k_option['custom']['imgSize']['L'] = array('width'=>300, 'height'=>240);		// big preview pic for posts
 $k_option['custom']['imgSize']['XL'] = array('width'=>884, 'height'=>390);		// big images for fullsize pages
 
 

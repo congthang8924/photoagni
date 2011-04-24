@@ -109,7 +109,8 @@ else
 			foreach($gallery_images as $key=>$gallery_image)
 			{
 				// Here starts the code generated for each gallery entry:
-				$image_name = $gallery_image->image_slug;
+				
+				$image_name = $gallery_image->alttext;
 				$image_link = get_bloginfo('wpurl') . '/?image_id=' . $gallery_image->pid;
 				$image_description = $gallery_image->description;
 				
