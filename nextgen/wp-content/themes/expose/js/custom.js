@@ -16,10 +16,6 @@ jQuery(document).ready(function(){
 	//shows the different display options of the gallery once images are loaded
 	jQuery('.the_gallery').galleryDisplay();
 	
-	//applies tooltips with images
-	jQuery('.gallery_entry').kriesi_tooltip({applyTooltip: '.item_small' });
-	jQuery('.gallery_entry').kriesi_tooltip({className: 'text_tooltip tooltip', applyTooltip: '.item_big', tooltipContent:'.gallery_excerpt'});
-	
 
 	// activates the lightbox page
 	my_lightbox("a[rel^='prettyPhoto'], a[rel^='lightbox']",true);
@@ -260,100 +256,75 @@ jQuery(document).ready(function(){
 // -------------------------------------------------------------------------------------------
 // The Image preloader
 // -------------------------------------------------------------------------------------------
-
-
 (function($)
 {
-	$.fn.kriesi_image_preloader = function(options) 
+	$.fn.kriesi_image_preloader = function(variables, callback) 
 	{
 		var defaults = 
 		{
-			repeatedCheck: 500,
-			fadeInSpeed: 1000,
-			delay:600,
+			fadeInSpeed: 800,
+			maxLoops: 10,
 			callback: ''
 		};
 		
-		var options = $.extend(defaults, options);
-		
+		var options = $.extend(defaults, variables);
+			
 		return this.each(function()
-		{	
-			var imageContainer = jQuery(this),
-				images = imageContainer.find('img').not('.no_preload, .post-ratings img').css({opacity:0, visibility:'hidden'}),
-				imagesToLoad = images.length;				
+		{
+			var container 	= $(this),
+				images		= $('img', this).css({opacity:0, visibility:'visible', display:'block'}),
+				parent = images.parent(),
+				imageCount = images.length,
+				interval = '',
+				allImages = images ;
 				
-				imageContainer.operations =
-				{	
-					preload: function()
-					{	
-						var stopPreloading = true;
-												
-						images.each(function(i, event)
-						{	
-							var image = $(this);							
-							
-							if(event.complete == true)
-							{	
-								if($.browser.opera) imagesToLoad --;
-								imageContainer.operations.showImage(image);
-							}
-							else
-							{	
-								if($.browser.opera) imagesToLoad --;
-								image.bind('error load',{currentImage: image}, imageContainer.operations.showImage);
-							}
-							
-						});
-						
-						return this;
-					},
+			
+			var methods = 
+			{
+				checkImage: function()
+				{
+					images.each(function(i)
+					{
+						if(this.complete == true) images = images.not(this);
+					});
 					
-					showImage: function(image)
-					{	
-						if(!$.browser.opera) imagesToLoad --;
-						if(image.data.currentImage != undefined) { image = image.data.currentImage;}
-													
-						if (options.delay <= 0) image.css('visibility','visible').animate({opacity:1}, options.fadeInSpeed);
-											 
-						if(imagesToLoad == 0)
-						{
-							if(options.delay > 0)
-							{
-								images.each(function(i, event)
-								{	
-									var image = $(this);
-									setTimeout(function()
-									{	
-										image.css('visibility','visible').animate({opacity:1}, options.fadeInSpeed, function()
-										{
-											$(this).parent().removeClass('preloading');
-										});
-									},
-									options.delay*(i+1));
-								});
-								
-								if(options.callback != '')
-								{
-									setTimeout(options.callback, options.delay*images.length);
-								}
-							}
-							else if(options.callback != '')
-							{
-								(options.callback)();
-							}
-							
-						}
-						
+					if(images.length && options.maxLoops >= 0)
+					{
+						options.maxLoops--;
+						setTimeout(methods.checkImage, 500);
 					}
-
-				};
+					else
+					{
+						methods.showImages();
+					}
+				},
 				
-				imageContainer.operations.preload();
-		});
-		
-	}
-})(jQuery);
+				showImages: function()
+				{
+					allImages.each(function(i)
+					{
+						var currentImage = $(this);
+						currentImage.animate({opacity:1}, options.fadeInSpeed, function()
+						{
+							if(allImages.length == i+1) methods.callback(i);
+						});
+					});
+				},
+				
+				callback: function()
+				{				
+					if (variables instanceof Function) { callback = variables; }
+					if (callback  instanceof Function) { callback.call(this);  }
+					if(options.callback != '') (options.callback)();
 
+				}
+			};
+			
+			methods.checkImage();
+
+		});
+	};
+})(jQuery);
 
 
 // -------------------------------------------------------------------------------------------
@@ -497,7 +468,14 @@ jQuery(document).ready(function(){
 				{	
 					skipSwitch = false;
 					
-					slides.css({'backgroundColor':'transparent','backgroundImage':'none'});
+					if($.browser.msie)
+					{
+						slides.css({'backgroundColor':'#000000','backgroundImage':'none'});
+					}
+					else
+					{
+						slides.css({'backgroundImage':'none'});
+					}
 					
 					if(options.autorotation && !$.browser.opera) 
 					{
@@ -784,7 +762,7 @@ function my_lightbox($elements, autolink)
 	
 	if(autolink)
 	{
-		jQuery('a[href$=jpg], a[href$=png], a[href$=gif], a[href$=jpeg], a[href$=.mov] , a[href$=.swf] , a[href*=vimeo.com] , a[href*=youtube.com]').contents("img").parent().each(function()
+		jQuery('a[href$=jpg], a[href$=png], a[href$=gif], a[href$=jpeg], a[href$=".mov"] , a[href$=".swf"] , a[href*="vimeo.com"] , a[href*="youtube.com"]').contents("img").parent().each(function()
 		{
 			if(!jQuery(this).attr('rel') != undefined && !jQuery(this).attr('rel') != '' && !jQuery(this).hasClass('noLightbox') && jQuery(this).parents('.gallery_inner').length == 0)
 			{

@@ -5,7 +5,7 @@
 ######################################################################
 
 
-function kriesi_user_thumb($image_URL, $option)
+function kriesi_user_thumb($image_URL, $option, $lightbox_image_url = '')
 {	
 	global $k_option;
 	
@@ -77,10 +77,18 @@ function kriesi_user_thumb($image_URL, $option)
 		else if($display_link == 'lightbox')
 		{	
 			//check if we got a set customfield to overwrite the default generated image
+			if(isset($lightbox_image_url) && $lightbox_image_url != '')
+			{
+				$preview_url = $lightbox_image_url;
+			}
+			else
+			{
+				$preview_url = $image_URL;
+			}
 			if (isset($option['linkurl'][1]))
 			{
 				// $link_src = get_post_meta($this_post, $option['linkurl'][1], true);
-				$link_src = $image_URL;
+				$link_src = $preview_url;
 			}
 			
 			if($link_src == '')
@@ -88,7 +96,7 @@ function kriesi_user_thumb($image_URL, $option)
 				
 				// $link_src = wp_get_attachment_image_src($thumbnail_id, $option['linkurl'][0]);
 				// $link_src = $link_src[0];
-				$link_src = $image_URL;
+				$link_src = $preview_url;
 			}
 			
 			// $linkwrap[0] = '<a '.$link_attr_string.' rel="lightbox[grouped]" href="'.$link_src.'" title="'.get_the_title().'" >';

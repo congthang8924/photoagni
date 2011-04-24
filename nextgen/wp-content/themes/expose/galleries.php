@@ -93,7 +93,6 @@ if(is_user_logged_in())
 				echo "<div class='gallery_inner'>";
 				echo "<a class='preloading gallery_image' href='".$gallery_link."'>";
 				echo $small_prev_image;
-				echo $big_prev_image;
 				echo "</a>";
 				// echo "<span class='comment_link'>";
 				// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
