@@ -4,8 +4,21 @@ Template Name: Images
 */
 
 get_header();
+include_once(WINABSPATH.'/wp-content/plugins/agni_fb/fbmain.php');
+//$config['baseurl'] = get_bloginfo('url').'/galleries';
+//$config['baseurl'] = 'http://acenik.x10hosting.com/nextgen/';
 ?>
 <script type="text/javascript" src="http://fotoflexer.com/API/ff_api_v1_01.js"></script>
+<style>
+.fb_button_simple{
+float: left;
+}
+
+.edit_pic{
+cursor: pointer;
+}
+</style>
+<div id="fb-root"></div>
 <?php
 global $ngg, $nggdb, $wp_query;
 
@@ -82,10 +95,29 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo $small_prev_image;
 						echo "</a>";
 						
-						echo '<div class="post-ratings"><span class="edit_pic" id="'.$gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid.'"><img title="Edit Picture" alt="Edit Picture" src="'.get_bloginfo('template_url').'/images/edit_picture.png" /></span><img title="Upload to Facebook" alt="Upload to Facebook" src="'.get_bloginfo('template_url').'/images/fb.gif" /> <img title="Upload to Flickr" alt="Upload to Flickr" src="'.get_bloginfo('template_url').'/images/flickr.png" /></div>';
-						
-						
-						
+						?>
+						<div class="post-ratings">
+							<span class="edit_pic" id="<?php echo $gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid; ?>">
+								<img title="Edit Picture" alt="Edit Picture" src="<?php echo get_bloginfo('template_url').'/images/edit_picture.png'; ?>" />
+							</span>
+								<?php
+								if(!$fbme){ ?> 
+									<span class="share_fb" id="<?php echo $gallery_image->alttext; ?>">
+										<fb:login-button title="Upload to Facebook" size="icon" autologoutlink="false" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
+									</span>    
+    							<?php }else{ 
+    								//$enc_params_fb = encrypt($gallery_image->imageURL.'*'.$gallery_image->alttext.'*'.$facebook,'1a2g3n4i5');
+    							?>
+    								<span class="share_fb_logged" id="<?php echo $enc_params_fb; ?>">
+    									<img title="Upload to Facebook" alt="Upload to Facebook" src="<?php echo get_bloginfo('template_url').'/images/fb.gif'; ?>" />
+    								</span>
+    							<?php } ?>
+							</span>
+							<span class="share_flickr" id="<?php echo $gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid; ?>">
+								<img title="Upload to Flickr" alt="Upload to Flickr" src="<?php echo get_bloginfo('template_url').'/images/flickr.png'; ?>" />
+							</span>	
+						</div>
+						<?php
 						// echo "<span class='comment_link'>";
 						// comments_popup_link(__('0','expose'), __('1','expose'), __('%','expose'));
 						// echo "</span>";
@@ -172,9 +204,40 @@ $('.edit_pic').click(function() {
 });
 });
 </script>
+<script type="text/javascript">
+            window.fbAsyncInit = function() {
+                FB.init({appId: '<?php echo $fbconfig['appid' ]; ?>', status: true, cookie: true, xfbml: true});
 
+                /* All the events registered */
+                FB.Event.subscribe('auth.login', function(response) {
+                    // do something with response
+                    login();
+                });
+                FB.Event.subscribe('auth.logout', function(response) {
+                    // do something with response
+                    logout();
+                });
+            };
+            (function() {
+                var e = document.createElement('script');
+                e.type = 'text/javascript';
+                e.src = document.location.protocol +
+                    '//connect.facebook.net/en_US/all.js';
+                e.async = true;
+                document.getElementById('fb-root').appendChild(e);
+            }());
+
+            function login(){
+                document.location.href = "<?php echo get_bloginfo('url').'/'.$_SERVER['REQUEST_URI']; ?>";
+            }
+            function logout(){
+                document.location.href = "<?php echo get_bloginfo('url').'/'.$_SERVER['REQUEST_URI']; ?>";
+            }
+</script>
 
 <?php
+d($fbme);
+d($facebook);
 get_sidebar();
 
 get_footer();

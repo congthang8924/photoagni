@@ -1,4 +1,55 @@
 <?php
+
+/* Buzzr Encyption Functions Key */
+function decrypt($string, $key)
+{
+    $string = str_replace('WPT', '/', $string);
+    $string = str_replace('W1PT', '+', $string);
+    $string = base64_decode($string);
+    /* Open the cipher */
+    $td = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CFB, '');
+    /* Get IV  and keysize length */
+    $iv_size = mcrypt_enc_get_iv_size($td);
+    $iv = substr($string,0,$iv_size);
+    $string = substr($string,$iv_size);
+    $ks = mcrypt_enc_get_key_size($td);
+    /* Create key */
+    $key = substr(md5($key), 0, $ks);
+    /* Initialize encryption module for decryption */
+    mcrypt_generic_init($td, $key, $iv);
+    /* Decrypt encrypted string */
+    $decrypted = mdecrypt_generic($td, $string);
+    /* Terminate decryption handle and close module */
+    mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    return $decrypted;
+  }
+
+function encrypt($string, $key)
+{
+    /* Open the cipher */
+    $td = mcrypt_module_open(MCRYPT_RIJNDAEL_256, '', MCRYPT_MODE_CFB, '');
+    /* Create the IV and determine the keysize length, use MCRYPT_RAND on Windows instead  and MCRYPT_DEV_RANDOM on Linux*/
+    $iv_size = mcrypt_enc_get_iv_size($td);
+    $iv = mcrypt_create_iv($iv_size, MCRYPT_RAND);
+    $ks = mcrypt_enc_get_key_size($td);
+    /* Create key */
+    $key = substr(md5($key), 0, $ks);
+    /* Intialize encryption */
+    mcrypt_generic_init($td, $key, $iv);
+    /* Encrypt data */
+    $encrypted = mcrypt_generic($td, $string);
+    /* Terminate encryption handle and close module */
+    mcrypt_generic_deinit($td);
+    mcrypt_module_close($td);
+    $encrypted = $iv.$encrypted;
+    $return = base64_encode($encrypted);
+    $return = str_replace('/', 'WPT', $return);
+    $return = str_replace('+', 'W1PT', $return);
+    return $return;
+  }
+/* Buzzr Encyption Functions */
+
 global $k_option;
 
 load_theme_textdomain('expose');
