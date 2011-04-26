@@ -7,9 +7,9 @@
         include_once "facebook.php";
     }
     catch(Exception $o){
-        echo '<pre>';
-        print_r($o);
-        echo '</pre>';
+        //echo '<pre>';
+        //print_r($o);
+        //echo '</pre>';
     }
     // Create our Application instance.
     $facebook = new Facebook(array(
@@ -34,7 +34,7 @@
         $uid = $facebook->getUser();
         $fbme = $facebook->api('/me');
       } catch (FacebookApiException $e) {
-          d($e);
+          //d($e);
       }
     }
 
