@@ -140,7 +140,7 @@ $k_option['showSidebar'] = 'frontpage';
 
 get_sidebar();
 
-get_footer();
+//get_footer();
 // End main div
 // echo '</div>';
 ?>

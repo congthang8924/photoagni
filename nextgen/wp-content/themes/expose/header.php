@@ -86,8 +86,13 @@ if (isset($k_option['custom']['bodyclass'])) $k_body_class = $k_option['custom']
 	<div class="center">
 	
 		<div id="head">
-		
-			<h2 class="logo <?php echo $logoclass; ?>"><a href="<?php echo get_settings('home'); ?>/"><?php echo $logo; ?></a></h2>
+		  <style>
+		  h2 a{
+        color: white !important;
+      }
+      </style>
+		  
+			<h2 style="color: white !important;" class="<?php echo $logoclass; ?>"><a href="<?php echo get_settings('home'); ?>/"><?php echo get_bloginfo('name'); //$logo; ?></a></h2>
 			
 			<!-- Navigation for Pages starts here -->
 			<?php 

@@ -5,6 +5,8 @@ Template Name: Images
 
 get_header();
 include_once(WINABSPATH.'/wp-content/plugins/agni_fb/fbmain.php');
+
+error_reporting('E_ALL');
 //$config['baseurl'] = get_bloginfo('url').'/galleries';
 //$config['baseurl'] = 'http://acenik.x10hosting.com/nextgen/';
 ?>
@@ -14,7 +16,7 @@ include_once(WINABSPATH.'/wp-content/plugins/agni_fb/fbmain.php');
 float: left;
 }
 
-.edit_pic{
+.edit_pic,.share_fb_logged{
 cursor: pointer;
 }
 </style>
@@ -27,6 +29,7 @@ $gallery_details = $nggdb->find_gallery($gallery_id);
 
 echo '<div id="feature_info">';
 echo '<h2>'.$gallery_details->title.'</h2>';
+echo '<div id="result">hello</div>';
 echo '</div>';
 
 echo '<div id="main">';
@@ -81,7 +84,7 @@ if(isset($gallery_id) && $gallery_id != 0)
 																	'linkurl' => array ('XL','_preview_big')
 																	), $gallery_image->imageURL);
 						
-						
+
 						$big_prev_image = kriesi_user_thumb($gallery_image->imageURL, array('size'=> array('L'),
 																 	'wh' => $k_option['custom']['imgSize']['L'],
 																 	'img_attr' => array('title'=>$image_name,
@@ -105,8 +108,8 @@ if(isset($gallery_id) && $gallery_id != 0)
 									<span class="share_fb" id="<?php echo $gallery_image->alttext; ?>">
 										<fb:login-button title="Upload to Facebook" size="icon" autologoutlink="false" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
 									</span>    
-    							<?php }else{ 
-    								//$enc_params_fb = encrypt($gallery_image->imageURL.'*'.$gallery_image->alttext.'*'.$facebook,'1a2g3n4i5');
+    							<?php }else{
+                    $enc_params_fb = encrypt($gallery_image->imagePath.'*'.$gallery_image->alttext,'1a2g3n4i5');
     							?>
     								<span class="share_fb_logged" id="<?php echo $enc_params_fb; ?>">
     									<img title="Upload to Facebook" alt="Upload to Facebook" src="<?php echo get_bloginfo('template_url').'/images/fb.gif'; ?>" />
@@ -197,11 +200,27 @@ $k_option['showSidebar'] = 'frontpage';
 </script>
 <script type="text/javascript">
 jQuery(document).ready(function($){
+
 $('.edit_pic').click(function() {
 	var params = $(this).attr('id');
 	var myArray = params.split('*');
 	ff_setup(myArray[2],myArray[1],myArray[0],myArray[3]);
 });
+
+$('.share_fb_logged').click(function() {
+   var fb_params = $(this).attr('id');
+   //alert(fb_params);
+   $.ajax({
+  	type: "POST",
+  	url: "<?php echo get_bloginfo('wpurl').'/wp-content/plugins/agni_fb/fb_upload.php'; ?>",
+    data: "gallery_params="+fb_params,
+  	success: function(msg){
+      $('#result').empty();
+      $('#result').html(msg);
+    }
+   });
+});
+
 });
 </script>
 <script type="text/javascript">
@@ -231,16 +250,14 @@ $('.edit_pic').click(function() {
                 document.location.href = "<?php echo get_bloginfo('url').'/'.$_SERVER['REQUEST_URI']; ?>";
             }
             function logout(){
-                document.location.href = "<?php echo get_bloginfo('url').'/'.$_SERVER['REQUEST_URI']; ?>";
+                //document.location.href = "<?php echo get_bloginfo('url').'/'.$_SERVER['REQUEST_URI']; ?>";
             }
 </script>
 
 <?php
-d($fbme);
-d($facebook);
 get_sidebar();
 
-get_footer();
+//get_footer();
 // End main div
 // echo '</div>';
 ?>
