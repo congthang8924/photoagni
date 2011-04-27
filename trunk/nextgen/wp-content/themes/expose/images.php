@@ -1,4 +1,4 @@
-<?php
+ <?php
 /*
 Template Name: Images
 */
@@ -29,7 +29,7 @@ $gallery_details = $nggdb->find_gallery($gallery_id);
 
 echo '<div id="feature_info">';
 echo '<h2>'.$gallery_details->title.'</h2>';
-echo '<div id="result">hello</div>';
+echo '<div id="result"></div>';
 echo '</div>';
 
 echo '<div id="main">';
@@ -217,6 +217,7 @@ $('.share_fb_logged').click(function() {
   	success: function(msg){
       $('#result').empty();
       $('#result').html(msg);
+      //alert(msg);
     }
    });
 });
