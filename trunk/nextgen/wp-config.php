@@ -18,17 +18,21 @@
 /** The name of the database for WordPress */
 define('DB_NAME', 'nextgen');
 //define('DB_NAME', 'acenik_ngg');
+//define('DB_NAME', 'bitnami_wordpress');
 
 /** MySQL database username */
 define('DB_USER', 'root');
 //define('DB_USER', 'acenik_ngg');
+//define('DB_USER', 'bn_wordpress');
 
 /** MySQL database password */
 define('DB_PASSWORD', '');
 //define('DB_PASSWORD', '5TDD9oG2vVVG');
+//define('DB_PASSWORD', '02730ed00d');
 
 /** MySQL hostname */
 define('DB_HOST', 'localhost');
+//define('DB_HOST', 'localhost:3306');
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -91,3 +95,5 @@ if ( !defined('ABSPATH') )
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');
+
+define('FS_METHOD','direct');
