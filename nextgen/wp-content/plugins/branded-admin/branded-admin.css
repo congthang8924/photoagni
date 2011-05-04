@@ -1,0 +1,50 @@
+/*-----------------------------------------------------------------------------
+Branded Admin Header
+-----------------------------------------------------------------------------*/	
+
+/*
+Add any header changes you want here. */
+#wphead {
+}
+
+/*
+Hides the small grey 'W' WordPress logo in the header. */
+#wp-logo {
+	display:none;
+}
+
+/*
+Hides the site name link in the header. */
+#wphead h1 {
+	display:none;
+}
+
+/*-----------------------------------------------------------------------------
+Branded Admin Footer
+-----------------------------------------------------------------------------*/	
+/*
+Add any footer changes you want here. */
+#footer {
+}
+
+/*
+Moves the left side footer text closer to the small footer logo. */
+p#footer-left {
+	margin-left:-15px;
+}
+
+
+/*
+Aids in branding by hiding the 'You are using WordPress 2.x.x' line from the Dashboard. */
+span#wp-version-message {
+	display:none;
+}
+
+/*
+Moves the 'Akismet blocks spam from...' line up a few px for astetics.*/
+p.akismet-right-now {
+	mar gin-top:-10px;
+}
+
+/*-----------------------------------------------------------------------------
+*/

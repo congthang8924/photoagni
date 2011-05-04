@@ -1,0 +1,91 @@
+html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,code,del,dfn,em,img,q,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{border:0;font-weight:inherit;font-style:inherit;font-size:100%;font-family:inherit;vertical-align:baseline;margin:0;padding:0;}
+
+body{line-height:1.5;background-position:top left;border:none!important;color:#222!important;font-size:75%;font-family:"Helvetica Neue", Arial, Helvetica, sans-serif;overflow:hidden;}
+
+table{border-collapse:separate;border-spacing:0;}
+caption,th,td{text-align:left;font-weight:400;}
+table,td,th{vertical-align:middle;}
+blockquote:before,blockquote:after,q:before,q:after{content:"";}
+blockquote,q{quotes:"" "";}
+
+a img{border:none;}
+html{overflow:hidden;}
+h1{font-weight:400;}
+h1 a{background:none;display:inline;height:auto;width:auto;text-indent:0;padding:0;}
+h2{font-weight:700;font-size:1.167em;margin:0 0 1em;}
+a,a:hover,.login #nav a{color:#fff!important;text-decoration:none;}
+
+.login #nav a{background-image:url(../i/transp-black.png)!important;text-decoration:none;} /* #d54e21 */
+.login #nav a:hover{color:#fff!important;background-image:url(../i/transp-red.png)!important;text-decoration:none;} /* #d54e21 */
+fieldset{border:none;padding-top:0;}
+#backtoblog{display:none;}
+label{color:#fff;cursor:pointer;font-weight:700;text-shadow:none;}
+
+body {min-width:450px;}
+#login form .submit input,#login form .submit input:active{-moz-border-radius:0;-webkit-border-radius:0;-khtml-border-radius:0;border-top-radius:0;background:url(../i/button-gray.png) no-repeat!important;border:none!important;color:#fff!important;cursor:pointer;font-family:inherit;font-size:.917em;height:30px;width:120px;border:none;}
+#login form input{font-family:inherit;}
+#login{float:right;width:358px;margin:4em 4em 0 0;}
+
+#brand{background:url(../i/header.png) no-repeat;height:80px;margin:0 0 1em 0;margin-left: 32px;text-indent:-9999em;}
+#brand span{margin-bottom:7px;}
+
+#desc{font-size:1.083em;font-weight:700;margin:0 0 3em 15px;text-align:center;}
+
+#loginform,#registerform,#lostpasswordform{-moz-box-shadow:none;-webkit-box-shadow:none;-khtml-box-shadow:none;box-shadow:none;background:url(../i/transp-black.png); color:#fff;position:relative;overflow:hidden;width:322px;padding:1.5em;mar gin:0 0 .5em 40px; float:right;}
+
+#nav{font-size:.917em;text-align:right;text-shadow:none;mar gin:4em 0 2em;margin:4em 0 2em 0;padding:0;color:#fff;width:322px;float:right;}
+#nav a {padding:4px;}
+
+#form-opt{margin:0 1.5em;}
+.form-buttons{text-align:right;}
+#footer{display: none;background:transparent!important;bottom:0;color:#fff;left:0;position:absolute;margin:0 0 3% 3%;width:100%;}
+#footer ul{list-style:none;overflow:hidden;margin:0 auto;fl oat:right;} 
+#footer ul li{float:left;margin-right:15px;}
+a.logo{background:url(../i/logos-footer.png) no-repeat 0 0;display:block;height:31px;text-indent:-9999em;width:140px;}
+.logo.kw{background-position:0 -33px!important;}
+.logo.wp{background-position:0 -64px!important;}
+.logo.ws{background-position:0 0!important;}
+#suggest{padding-top:8px;}
+#suggest a{font-weight:700;text-decoration:underline!important;}
+.error{background:url(../i/arr-red.png) no-repeat center bottom;border:none;position:absolute;top:50px;padding:0 0 8px;}
+.error p{background:#8A1F11;color:#fff;padding:1em;}
+
+#bg{left:0;overflow:hidden;position:absolute;top:0;z-index:-1000;background:#f3f3f3;}
+
+/* 
+    How to use a repeating background image instead of a large hi res image
+
+ 1) Uncomment the #bg entry below
+ 2) Change the image reference to your desired repeating background image
+ 3) COMMENT the #bg img entry below the #bg entry 
+    (removes the full sizing of the image)
+ 4) Upload the selected image to the assets/i/ folder of the plugin:
+    '/yourwebroot/wp-content/plugins/branded-login-screen/assets/i/'
+ 5) See edits needed in the branded-login-screen.js file located in the plugins 
+    'assets/j/' folder.
+*/
+
+/* #bg {background:url(../i/20080905024040743.jpg) repeat;} */
+#bg img{display:block;height:auto;width:100%;} 
+
+
+.message, .login #login_error{color:#222;width:331px;float:right;background-color:#ffebe8;border:1px solid #c00}
+
+#login #login_error a{color:#222!important;border-bottom:1px solid #222;}
+
+
+p.hideme, p.register, p#reg_passmail{display:none;}
+
+/* To center login form uncomment the following css */
+
+body {width:402px;margin:0 auto 0 auto;}
+#login{float:none;}
+#nav{margin:4em auto 2em auto;}
+#loginform,#registerform,#lostpasswordform{margin:0 auto .5em auto;}
+
+/* To left align login form uncomment the following css */
+/*
+#login{float:left;margin:4em 0 0 4em}
+#nav{float:right;margin:4em 0 2em 55px;}
+*/
+
