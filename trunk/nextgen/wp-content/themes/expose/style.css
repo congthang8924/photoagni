@@ -145,6 +145,7 @@ margin-right:0px;
 *************************************************************************/
 
 #top .logo, .logo a{
+background: url("../images/skin1/logo.png") no-repeat scroll left top transparent;
 display:block;
 height:60px;
 width:180px;
