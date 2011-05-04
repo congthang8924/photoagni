@@ -256,7 +256,7 @@ $('.share_fb_logged').click(function() {
 </script>
 
 <?php
-get_sidebar();
+//get_sidebar();
 
 //get_footer();
 // End main div

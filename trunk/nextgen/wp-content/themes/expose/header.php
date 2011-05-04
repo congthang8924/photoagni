@@ -120,10 +120,12 @@ if (isset($k_option['custom']['bodyclass'])) $k_body_class = $k_option['custom']
 				
 			?>
 			
-			
+			<?php
+			/* Agnidata */
+			/*
 			<div id="headextras" class='rounded'>
 			
-				<?php get_search_form(); ?>
+				<?php //get_search_form(); ?>
 				
 				<ul class="social_bookmarks">
 					<?php if(isset($k_option['general']['contact_link']) && $k_option['general']['contact_link'] != '')
@@ -142,7 +144,9 @@ if (isset($k_option['custom']['bodyclass'])) $k_body_class = $k_option['custom']
 			
 			<!-- end headextras: --> 
 			</div>
-			
+			*/
+			/* Agnidata */
+			?>
 			
 		<!--end head-->
 		</div>
