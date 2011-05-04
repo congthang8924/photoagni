@@ -1153,7 +1153,32 @@ class nggdb {
         
         return $this->galleries;
     }
-
+		
+    /**
+     * Get a gallery given its name
+     * 
+     * @param int|string $id or $slug
+     * @return A nggGallery object (null if not found)
+     */
+    function find_gallery_by_name( $name ) {      
+        global $wpdb;
+        
+        $gallery = $wpdb->get_row( $wpdb->prepare( "SELECT * FROM $wpdb->nggallery WHERE name = %s", $name ) );
+        
+        // Build the object from the query result
+        if ($gallery) {
+            // it was a bad idea to use a object, stripslashes_deep() could not used here, learn from it
+            $gallery->title = stripslashes($gallery->title);
+            $gallery->galdesc  = stripslashes($gallery->galdesc);
+            
+            $gallery->abspath = WINABSPATH . $gallery->path;
+            //TODO:Possible failure , $id could be a number or name
+            wp_cache_add($id, $gallery, 'ngg_gallery');
+            
+            return $gallery;            
+        } else 
+            return false;
+    }
 }
 endif;
 
