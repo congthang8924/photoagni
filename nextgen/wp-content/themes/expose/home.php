@@ -196,7 +196,7 @@ echo '	</div>';
 
 $k_option['showSidebar'] = 'frontpage';
 
-get_sidebar();
+//get_sidebar();
 
 //get_footer();
 // End main div
