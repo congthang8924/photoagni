@@ -5,7 +5,6 @@ Template Name: Images
 
 get_header();
 include_once(WINABSPATH.'/wp-content/plugins/agni_fb/fbmain.php');
-
 error_reporting('E_ALL');
 //$config['baseurl'] = get_bloginfo('url').'/galleries';
 //$config['baseurl'] = 'http://acenik.x10hosting.com/nextgen/';
@@ -42,6 +41,17 @@ if(isset($gallery_id) && $gallery_id != 0)
 		get_currentuserinfo();
 		$userID = $current_user->data->ID;
 		
+		if($fbme){
+      $fb_token = get_user_meta($userID,'fb_token',true);
+      if(empty($fb_token)){
+        $fb_token = $facebook->getAccessToken(); 
+        add_user_meta($userID,'fb_token',$fb_token,true);
+      }
+    }
+    else{
+      $fb_token = get_user_meta($userID,'fb_token',true);
+    }
+    
 		// Get gallery details
 		// $gallery_details = $nggdb->find_gallery($gallery_id);
 		if(is_object($gallery_details))
@@ -97,19 +107,18 @@ if(isset($gallery_id) && $gallery_id != 0)
 						echo "<a class='preloading gallery_image' href='".$image_link."'>";
 						echo $small_prev_image;
 						echo "</a>";
-						
 						?>
 						<div class="post-ratings">
 							<span class="edit_pic" id="<?php echo $gallery_image->filename.'*'.$gallery_id.'*'.$gallery_image->imageURL.'*'.$gallery_image->pid; ?>">
 								<img title="Edit Picture" alt="Edit Picture" src="<?php echo get_bloginfo('template_url').'/images/edit_picture.png'; ?>" />
 							</span>
 								<?php
-								if(!$fbme){ ?> 
+								if(empty($fb_token)){ ?> 
 									<span class="share_fb" id="<?php echo $gallery_image->alttext; ?>">
-										<fb:login-button title="Upload to Facebook" size="icon" autologoutlink="false" perms="email,user_birthday,status_update,publish_stream"></fb:login-button>
+										<fb:login-button title="Upload to Facebook" size="icon" autologoutlink="false" perms="email,publish_stream,offline_access"></fb:login-button>
 									</span>    
     							<?php }else{
-                    $enc_params_fb = encrypt($gallery_image->imagePath.'*'.$gallery_image->alttext,'1a2g3n4i5');
+                    $enc_params_fb = encrypt($gallery_image->imagePath.'*'.$gallery_image->alttext.'*'.$userID,'1a2g3n4i5');
     							?>
     								<span class="share_fb_logged" id="<?php echo $enc_params_fb; ?>">
     									<img title="Upload to Facebook" alt="Upload to Facebook" src="<?php echo get_bloginfo('template_url').'/images/fb.gif'; ?>" />
