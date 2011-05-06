@@ -26,7 +26,7 @@ if(isset($username) && $username != '')
 		$gallery = $nggdb->find_gallery_by_name($gallery_name);
 		if(!is_object($gallery))
 		{
-			$galleryID = nggAdmin::create_gallery($gallery_name, '/wp-content/gallery/', FALSE);
+			$galleryID = nggAdmin::create_gallery($gallery_name, 'wp-content/gallery/', FALSE);
 			$gallery = $nggdb->find_gallery($galleryID);
 		}
 		else
