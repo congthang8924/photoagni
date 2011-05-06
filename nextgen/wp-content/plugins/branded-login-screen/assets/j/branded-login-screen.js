@@ -14,7 +14,7 @@ $(document).ready(function(){
 	/* #bg div and html added to the Branded Login Screen - this div contains the reference to your background image */
 	/* Change the image src for hi-res or repeating image */
 	/* REPEATING IMAGE REQUIRES CSS CHANGES */
-	$('body.login').append('<div id="bg"><img src="/wp-content/plugins/branded-login-screen/assets/i/bg-1280.jpg" /></div>');
+	$('body.login').append('<div id="bg"></div>');
 
 	$('h1').attr('id','brand');
 	$('h1').attr('class','tooltip2');
