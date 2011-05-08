@@ -121,6 +121,38 @@ if(isset($username) && $username != '')
 			nggAdmin::set_gallery_preview ( $galleryID );
 			
 			nggGallery::show_message( count($image_ids) . __(' Image(s) successfully added','nggallery'));
+			
+			if(isset($_POST['auto_fb']) && $_POST['auto_fb'] == 'auto_fb')
+			{
+				$fb_token = get_user_meta($user_ID, 'fb_token', true);
+			  if(!empty($fb_token))
+			  {
+			  	include_once(WINABSPATH.'/wp-content/plugins/agni_fb/fbmain.php');
+			  	
+			  	$image_details = $nggdb->find_image($image_ids[0]);
+    			$photos = array('0'=>$image_details->imagePath);
+    			$filecaption = $image_details->alttext;
+    			foreach($photos as $key=>$value)
+    			{
+    				$uploadstatus = $facebook->api("/me/photos", 'post',
+    				array('source'  =>  '@'.$photos[$key],
+          				'access_token' => $fb_token, 
+    		  				'message' => $filecaption));
+    				if(!empty($uploadstatus['id']))
+    				{
+        			echo '<pre>Success: Image Uploaded to Facebook!</pre>';
+      			}
+      			else
+      			{
+        			echo '<pre>Error: Something Went Wrong!</pre>';
+      			}
+    			}
+  			}
+			  else
+			  {
+    			echo '<pre>Error: You Seemed to have Logged out From Facebook, Please Refresh Page & Login to Facebook Again</pre>';
+  			}
+			}
 		}
 	}
 	else
